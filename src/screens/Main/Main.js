@@ -9,12 +9,6 @@ const initialLayout = {
   width: Dimensions.get("window").width
 };
 
-const FirstRoute = TopicsList;
-
-const SecondRoute = () => (
-  <View style={[styles.container, { backgroundColor: "#673ab7" }]} />
-);
-
 class Main extends Component {
   state = {
     index: 0,
@@ -33,9 +27,27 @@ class Main extends Component {
     />
   );
 
+  topicSelectedHandler = replyInfo => {
+    this.props.navigator.push({
+      screen: "v2ex-react-native.ReplyScreen",
+      title: "主题",
+      passProps: {
+        replyInfo: replyInfo
+      }
+    });
+  };
+
+  FirstRoute = () => (
+    <TopicsList onPressTopicItem={this.topicSelectedHandler} />
+  );
+
+  SecondRoute = () => (
+    <View style={[styles.container, { backgroundColor: "#673ab7" }]} />
+  );
+
   _renderScene = SceneMap({
-    hot: FirstRoute,
-    all: SecondRoute
+    hot: this.FirstRoute,
+    all: this.SecondRoute
   });
 
   render() {

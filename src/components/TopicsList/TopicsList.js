@@ -347,6 +347,11 @@ class TopicsList extends Component {
       }
     ]
   };
+
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <FlatList
@@ -360,6 +365,7 @@ class TopicsList extends Component {
               topicNode={topic.item.node}
               topicReplies={topic.item.replies}
               topicLastModify={topic.item.last_modified}
+              onTopicSelected={() => this.props.onPressTopicItem(topic.item)}
             />
           );
         }}

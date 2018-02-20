@@ -1,42 +1,46 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import moment from "moment";
 import "moment/locale/zh-cn";
 
 const singleTopic = props => {
   let avatarImg = "https:" + props.topicAuthor.avatar_normal;
   return (
-    <View style={styles.topicItem}>
-      <View style={styles.topicAvatarArea}>
-        <Image source={{ uri: avatarImg }} style={styles.topicAvatar} />
-      </View>
-      <View style={styles.topicInfoArea}>
-        <Text>{props.topicTitle}</Text>
-        <View style={styles.topicDetailArea}>
-          <View style={styles.topicDetailTag}>
-            <Text style={styles.topicDetailText}>{props.topicNode.title}</Text>
-          </View>
-          <View style={styles.topicDetailUser}>
-            <Text style={[{ fontWeight: "bold" }, styles.topicDetailText]}>
-              {props.topicAuthor.username}
-            </Text>
-          </View>
-          <View>
-            <Text style={styles.topicDetailText}>
-              {moment
-                .unix(props.topicLastModify)
-                .startOf("hour")
-                .fromNow()}
-            </Text>
+    <TouchableOpacity onPress={props.onTopicSelected}>
+      <View style={styles.topicItem}>
+        <View style={styles.topicAvatarArea}>
+          <Image source={{ uri: avatarImg }} style={styles.topicAvatar} />
+        </View>
+        <View style={styles.topicInfoArea}>
+          <Text>{props.topicTitle}</Text>
+          <View style={styles.topicDetailArea}>
+            <View style={styles.topicDetailTag}>
+              <Text style={styles.topicDetailText}>
+                {props.topicNode.title}
+              </Text>
+            </View>
+            <View style={styles.topicDetailUser}>
+              <Text style={[{ fontWeight: "bold" }, styles.topicDetailText]}>
+                {props.topicAuthor.username}
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.topicDetailText}>
+                {moment
+                  .unix(props.topicLastModify)
+                  .startOf("hour")
+                  .fromNow()}
+              </Text>
+            </View>
           </View>
         </View>
+        <View style={styles.topicReplyCountArea}>
+          <Text style={{ color: "#fff", fontWeight: "bold" }}>
+            {props.topicReplies}
+          </Text>
+        </View>
       </View>
-      <View style={styles.topicReplyCountArea}>
-        <Text style={{ color: "#fff", fontWeight: "bold" }}>
-          {props.topicReplies}
-        </Text>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
