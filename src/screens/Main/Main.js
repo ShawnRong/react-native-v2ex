@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, Dimensions, StyleSheet } from "react-native";
 import { TabViewAnimated, TabBar, SceneMap } from "react-native-tab-view";
 
+import { NavigationActions } from "../../utility/navigationActions";
 import TopicsList from "../../components/TopicsList/TopicsList";
 
 const initialLayout = {
@@ -15,6 +16,11 @@ class Main extends Component {
     routes: [{ key: "hot", title: "最热" }, { key: "all", title: "全部" }]
   };
 
+  constructor(props) {
+    super(props);
+    NavigationActions.setNavigator(props.navigator);
+  }
+
   _handleIndexChange = index => this.setState({ index });
 
   _renderHeader = props => (
@@ -27,18 +33,19 @@ class Main extends Component {
     />
   );
 
-  topicSelectedHandler = replyInfo => {
-    this.props.navigator.push({
-      screen: "v2ex-react-native.ReplyScreen",
-      title: "主题",
-      passProps: {
-        replyInfo: replyInfo
-      }
-    });
-  };
+  // topicSelectedHandler = replyInfo => {
+  //   this.props.navigator.push({
+  //     screen: "v2ex-react-native.ReplyScreen",
+  //     title: "主题",
+  //     passProps: {
+  //       replyInfo: replyInfo
+  //     }
+  //   });
+  // };
 
   FirstRoute = () => (
-    <TopicsList onPressTopicItem={this.topicSelectedHandler} />
+    // <TopicsList onPressTopicItem={this.topicSelectedHandler} />
+    <TopicsList />
   );
 
   SecondRoute = () => (

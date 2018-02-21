@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 
+import { NavigationActions } from "../../utility/navigationActions";
 import SingleTopic from "../SingleTopic/SingleTopic";
 
 class TopicsList extends Component {
@@ -352,6 +353,16 @@ class TopicsList extends Component {
     super(props);
   }
 
+  onTopicSelected = data => {
+    NavigationActions.push({
+      screen: "v2ex-react-native.ReplyScreen",
+      title: "主题",
+      passProps: {
+        replyInfo: data
+      }
+    });
+  };
+
   render() {
     return (
       <FlatList
@@ -365,7 +376,8 @@ class TopicsList extends Component {
               topicNode={topic.item.node}
               topicReplies={topic.item.replies}
               topicLastModify={topic.item.last_modified}
-              onTopicSelected={() => this.props.onPressTopicItem(topic.item)}
+              // onTopicSelected={() => this.props.onPressTopicItem(topic.item)}
+              onTopicSelected={() => this.onTopicSelected(topic.item)}
             />
           );
         }}
