@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { View, Text, Dimensions, StyleSheet } from "react-native";
 import { TabViewAnimated, TabBar, SceneMap } from "react-native-tab-view";
+import { connect } from "react-redux";
 
 import { NavigationActions } from "../../utility/navigationActions";
 import TopicsList from "../../components/TopicsList/TopicsList";
+import { fetchHotTopic } from "../../store/actions";
 
 const initialLayout = {
   height: 0,
@@ -19,6 +21,10 @@ class Main extends Component {
   constructor(props) {
     super(props);
     NavigationActions.setNavigator(props.navigator);
+  }
+
+  componentDidMount() {
+    this.props.onLoadHotTopicList();
   }
 
   _handleIndexChange = index => this.setState({ index });
@@ -90,4 +96,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Main;
+const mapDispatchToProps = dispatch => {
+  return {
+    onLoadHotTopicList: () => dispatch(fetchHotTopic())
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Main);

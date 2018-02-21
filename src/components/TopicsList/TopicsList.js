@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 
 import { NavigationActions } from "../../utility/navigationActions";
+import RefreshListView from "../../utility/RefreshListView";
 import SingleTopic from "../SingleTopic/SingleTopic";
 
 class TopicsList extends Component {

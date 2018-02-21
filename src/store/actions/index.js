@@ -1,1 +1,1 @@
-export { loadHot } from "./main";
+export { fetchHotTopic } from "./main";
