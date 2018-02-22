@@ -1,25 +1,26 @@
 import * as actions from "../actions/actionTypes";
 
-const initalState = {
-  hotTopicList: [],
+const initialState = {
+  replyList: [],
   loading: false,
   error: null
 };
 
-const reducer = (state = initalState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actions.FETCH_HOT_TOPIC_LIST_START:
+    case actions.FETCH_REPLY_LIST_START:
       return {
         ...state,
+        replyList: [],
         loading: true
       };
-    case actions.FETCH_HOT_TOPIC_LIST_SUCCESS:
+    case actions.FETCH_REPLY_LIST_SUCCESS:
       return {
         ...state,
-        hotTopicList: action.hotList,
+        replyList: action.replyList,
         loading: false
       };
-    case actions.FETCH_HOT_TOPIC_LIST_FAIL:
+    case actions.FETCH_REPLY_LIST_FAIL:
       return {
         ...state,
         loading: false,

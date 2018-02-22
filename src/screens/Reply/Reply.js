@@ -11,16 +11,22 @@ import {
 import moment from "moment";
 import "moment/locale/zh-cn";
 
-import { replies } from "../../utility/data";
+import { connect } from "react-redux";
+
+import { fetchReply } from "../../store/actions";
 import SingleReply from "../../components/SingleReply/SingleReply";
 
 class Reply extends Component {
   constructor(props) {
     super(props);
   }
-  state = {
-    replies: replies
-  };
+
+  componentDidMount() {
+    this.props.onLoadReplyList(this.props.replyInfo.id);
+  }
+
+  _keyExtractor = (item, index) => item.id;
+
   render() {
     const topicOwnerAvatar =
       "https:" + this.props.replyInfo.member.avatar_normal;
@@ -64,10 +70,11 @@ class Reply extends Component {
         </View>
         <View>
           <FlatList
-            data={this.state.replies.replies}
+            data={this.props.replyList}
             renderItem={reply => {
               return <SingleReply replyData={reply} />;
             }}
+            keyExtractor={this._keyExtractor}
           />
         </View>
       </ScrollView>
@@ -130,4 +137,16 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Reply;
+const mapStateToProps = state => {
+  return {
+    replyList: state.reply.replyList
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLoadReplyList: topicId => dispatch(fetchReply(topicId))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Reply);

@@ -18,6 +18,24 @@ class Main extends Component {
     routes: [{ key: "hot", title: "最热" }, { key: "all", title: "全部" }]
   };
 
+  // tabHeaderList = [
+  //   {
+  //     key: "hot",
+  //     id: "hot",
+  //     title: "最热"
+  //   },
+  //   {
+  //     key: "all",
+  //     id: "all",
+  //     title: "全部"
+  //   },
+  //   {
+  //     key: "apple",
+  //     id: 184,
+  //     title: "Apple"
+  //   }
+  // ];
+
   constructor(props) {
     super(props);
     NavigationActions.setNavigator(props.navigator);

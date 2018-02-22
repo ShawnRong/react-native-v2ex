@@ -2,9 +2,11 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 
 import mainReducer from "./reducers/main";
+import replyReducer from "./reducers/reply";
 
 const rootReducer = combineReducers({
-  main: mainReducer
+  main: mainReducer,
+  reply: replyReducer
 });
 
 let composeEnhanders = compose;
