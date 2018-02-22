@@ -53,7 +53,7 @@ class Request {
       }
     }
 
-    if (__DEV__) console.log("fetch=>", this, "options => ", options);
+    // if (__DEV__) console.log("fetch=>", this, "options => ", options);
     this.timer = undefined;
     return Promise.race([
       fetch(this.url, options),
@@ -91,7 +91,7 @@ class Request {
         }
       })
       .then(response => {
-        if (__DEV__) console.log("fetch url = %s", this.url, response);
+        // if (__DEV__) console.log("fetch url = %s", this.url, response);
         return response;
       });
   }

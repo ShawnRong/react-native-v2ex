@@ -36,7 +36,6 @@ class Main extends Component {
   }
 
   _handleIndexChange = index => {
-    this.props.onLoadTopicList(this.state.routes[index].key, 1);
     this.setState({ index });
   };
 
@@ -76,12 +75,12 @@ class Main extends Component {
   //   return sceneMap;
   // };
 
-  _renderScene = ({ route }) => {
+  _renderScene = ({ route, focused }) => {
     switch (route.key) {
       case "hot":
         return <TopicsList />;
       default:
-        return <NormalTopicsList />;
+        return <NormalTopicsList focused={focused} tabName={route.key} />;
     }
   };
 
@@ -94,6 +93,7 @@ class Main extends Component {
         renderHeader={this._renderHeader}
         onIndexChange={this._handleIndexChange}
         initialLayout={initialLayout}
+        useNativeDriver
       />
     );
   }
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLoadTopicList: (node, page) => dispatch(fetchTopicList(node, page))
+    onLoadTopicList: node => dispatch(fetchTopicList(node))
   };
 };
 

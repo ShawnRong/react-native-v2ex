@@ -4,7 +4,7 @@ import {
   FETCH_TOPIC_LIST_SUCCESS,
   FETCH_TOPIC_LIST_FAIL
 } from "./actionTypes";
-import { nodeTopics } from "../../utility/Api";
+import { tabTopics } from "../../utility/Api";
 
 export const fetchTopicStart = () => {
   return {
@@ -26,10 +26,10 @@ export const fetchTopicFail = error => {
   };
 };
 
-export const fetchTopicList = (node, page) => {
+export const fetchTopicList = tab => {
   return dispatch => {
     dispatch(fetchTopicStart());
-    nodeTopics(node, page)
+    tabTopics(tab)
       .then(data => {
         dispatch(fetchTopicSuccess(data));
       })

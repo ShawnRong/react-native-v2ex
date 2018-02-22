@@ -26,7 +26,7 @@ const normalSingleTopic = props => {
         </View>
         <View style={styles.topicReplyCountArea}>
           <Text style={{ color: "#fff", fontWeight: "bold" }}>
-            {props.topicReplies}
+            {props.topicReplies ? props.topicReplies : 0}
           </Text>
         </View>
       </View>
