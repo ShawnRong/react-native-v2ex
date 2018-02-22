@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 
 import { NavigationActions } from "../../utility/navigationActions";
 import TopicsList from "../../components/TopicsList/TopicsList";
-import { fetchHotTopic } from "../../store/actions";
+import NormalTopicsList from "../../components/NormalTopicsList/NormalTopicsList";
+import { fetchTopicList } from "../../store/actions";
 
 const initialLayout = {
   height: 0,
@@ -15,37 +16,29 @@ const initialLayout = {
 class Main extends Component {
   state = {
     index: 0,
-    routes: [{ key: "hot", title: "最热" }, { key: "all", title: "全部" }]
+    routes: [
+      { key: "hot", title: "最热" },
+      { key: "all", title: "全部" },
+      { key: "tech", title: "技术" },
+      { key: "creative", title: "创意" },
+      { key: "play", title: "好玩" },
+      { key: "apple", title: "apple" },
+      { key: "jobs", title: "酷工作" },
+      { key: "deals", title: "交易" },
+      { key: "city", title: "城市" },
+      { key: "qna", title: "问与答" }
+    ]
   };
-
-  // tabHeaderList = [
-  //   {
-  //     key: "hot",
-  //     id: "hot",
-  //     title: "最热"
-  //   },
-  //   {
-  //     key: "all",
-  //     id: "all",
-  //     title: "全部"
-  //   },
-  //   {
-  //     key: "apple",
-  //     id: 184,
-  //     title: "Apple"
-  //   }
-  // ];
 
   constructor(props) {
     super(props);
     NavigationActions.setNavigator(props.navigator);
   }
 
-  componentDidMount() {
-    this.props.onLoadHotTopicList();
-  }
-
-  _handleIndexChange = index => this.setState({ index });
+  _handleIndexChange = index => {
+    this.props.onLoadTopicList(this.state.routes[index].key, 1);
+    this.setState({ index });
+  };
 
   _renderHeader = props => (
     <TabBar
@@ -53,33 +46,44 @@ class Main extends Component {
       tabStyle={styles.tabBarItemStyle}
       labelStyle={styles.tabBarLabelStyle}
       indicatorStyle={styles.tabBarItemActiveStyle}
+      scrollEnabled={true}
+      useNativeDriver={true}
       {...props}
     />
   );
 
-  // topicSelectedHandler = replyInfo => {
-  //   this.props.navigator.push({
-  //     screen: "v2ex-react-native.ReplyScreen",
-  //     title: "主题",
-  //     passProps: {
-  //       replyInfo: replyInfo
+  // HotRoute = () => <TopicsList />;
+
+  // AllRoute = () => (
+  //   <View style={[styles.container, { backgroundColor: "#673ab7" }]} />
+  // );
+
+  // // NormalRoute = node => <NormalTopicsList node={node} />;
+  // NormalRoute = () => <NormalTopicsList />;
+
+  // tabHeaderGenerate = () => {
+  //   let sceneMap = {};
+  //   this.state.routes.forEach(route => {
+  //     if (route.key === "hot") {
+  //       sceneMap[route.key] = this.HotRoute;
+  //     } else if (route.key === "all") {
+  //       sceneMap[route.key] = this.AllRoute;
+  //     } else {
+  //       sceneMap[route.key] = this.AllRoute;
+  //       // sceneMap[route.key] = this.NormalRoute;
   //     }
   //   });
+  //   return sceneMap;
   // };
 
-  FirstRoute = () => (
-    // <TopicsList onPressTopicItem={this.topicSelectedHandler} />
-    <TopicsList />
-  );
-
-  SecondRoute = () => (
-    <View style={[styles.container, { backgroundColor: "#673ab7" }]} />
-  );
-
-  _renderScene = SceneMap({
-    hot: this.FirstRoute,
-    all: this.SecondRoute
-  });
+  _renderScene = ({ route }) => {
+    switch (route.key) {
+      case "hot":
+        return <TopicsList />;
+      default:
+        return <NormalTopicsList />;
+    }
+  };
 
   render() {
     return (
@@ -104,7 +108,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   tabBarItemStyle: {
-    padding: 0
+    padding: 0,
+    width: Dimensions.get("window").width / 4
   },
   tabBarItemActiveStyle: {
     backgroundColor: "#445"
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLoadHotTopicList: () => dispatch(fetchHotTopic())
+    onLoadTopicList: (node, page) => dispatch(fetchTopicList(node, page))
   };
 };
 

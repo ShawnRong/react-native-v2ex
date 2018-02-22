@@ -3,10 +3,12 @@ import thunk from "redux-thunk";
 
 import mainReducer from "./reducers/main";
 import replyReducer from "./reducers/reply";
+import topicReducer from "./reducers/topic";
 
 const rootReducer = combineReducers({
   main: mainReducer,
-  reply: replyReducer
+  reply: replyReducer,
+  topic: topicReducer
 });
 
 let composeEnhanders = compose;

@@ -4,46 +4,35 @@ import { connect } from "react-redux";
 
 import { NavigationActions } from "../../utility/navigationActions";
 import RefreshListView from "../../utility/RefreshListView";
-import SingleTopic from "../SingleTopic/SingleTopic";
-import { fetchHotTopic } from "../../store/actions";
+import NormalSingleTopic from "../NormalSingleTopic/NormalSingleTopic";
+import { fetchTopicList } from "../../store/actions";
 
-class TopicsList extends Component {
+class NormalTopicsList extends Component {
   constructor(props) {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.onLoadHotTopicList();
-  }
-
-  onTopicSelected = data => {
-    NavigationActions.push({
-      screen: "v2ex-react-native.ReplyScreen",
-      title: "主题",
-      passProps: {
-        replyInfo: data
-      }
-    });
-  };
-
   _keyExtractor = (item, index) => item.id;
+
+  // componentDidMount() {
+  //   this.props.onLoadTopicList(this.props.nodeName, 1);
+  //   // this.props.onLoadTopicList("apple", 1);
+  // }
 
   render() {
     return (
       <FlatList
         style={styles.topicsContainer}
-        data={this.props.hotTopicList}
+        data={this.props.topicList}
         keyExtractor={this._keyExtractor}
         renderItem={topic => {
           return (
-            <SingleTopic
+            <NormalSingleTopic
               topicTitle={topic.item.title}
+              avatar={topic.item.avatar}
               topicAuthor={topic.item.member}
-              topicNode={topic.item.node}
               topicReplies={topic.item.replies}
-              topicLastModify={topic.item.last_modified}
-              // onTopicSelected={() => this.props.onPressTopicItem(topic.item)}
-              onTopicSelected={() => this.onTopicSelected(topic.item)}
+              topicLastModify={topic.item.time}
             />
           );
         }}
@@ -60,14 +49,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    hotTopicList: state.main.hotTopicList
+    topicList: state.topic.topicList
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLoadHotTopicList: () => dispatch(fetchHotTopic())
+    onLoadTopicList: (node, page) => dispatch(fetchTopicList(node, page))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopicsList);
+export default connect(mapStateToProps, mapDispatchToProps)(NormalTopicsList);
