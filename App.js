@@ -7,6 +7,7 @@ import Reply from "./src/screens/Reply/Reply";
 import NormalReply from "./src/screens/NormalReply/NormalReply";
 import SideDrawer from "./src/screens/SideDrawer/SideDrawer";
 import TagList from "./src/screens/TagList/TagList";
+import NodeTopics from "./src/screens/NodeTopics/NodeTopics";
 import configureStore from "./src/store/configStore";
 
 const store = configureStore();
@@ -38,6 +39,13 @@ Navigation.registerComponent(
 Navigation.registerComponent(
   "v2ex-react-native.TagListScreen",
   () => TagList,
+  store,
+  Provider
+);
+
+Navigation.registerComponent(
+  "v2ex-react-native.NodeTopicsScreen",
+  () => NodeTopics,
   store,
   Provider
 );

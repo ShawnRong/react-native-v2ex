@@ -17,10 +17,11 @@ class NormalTopicsList extends Component {
 
   _keyExtractor = (item, index) => item.id;
 
-  // componentDidMount() {
-  //   if (this.props.focused) {
-  //   }
-  // }
+  componentDidMount() {
+    if (this.props.loadData) {
+      this.onHeaderRefresh();
+    }
+  }
 
   componentDidUpdate(prevProps) {
     if (prevProps.focused !== this.props.focused && this.props.focused) {

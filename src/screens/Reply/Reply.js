@@ -127,13 +127,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#d4d4d4",
     width: "40%",
     margin: 10,
-    height: 20,
-    borderRadius: 10
+    height: 28,
+    borderRadius: 4
   },
   replyOperateButtonText: {
     color: "#000",
     textAlign: "center",
-    fontSize: 15
+    fontSize: 15,
+    lineHeight: 20
   }
 });
 
