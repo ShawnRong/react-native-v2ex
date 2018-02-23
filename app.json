@@ -1,7 +1,4 @@
 {
-  "expo": {
-    "sdkVersion": "25.0.0"
-  },
-  "name": "v2exreactnative",
-  "displayName": "V2EX"
+  "name": "v2ex-react-native",
+  "displayName": "v2ex-react-native"
 }

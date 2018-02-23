@@ -33,10 +33,21 @@ class Main extends Component {
   constructor(props) {
     super(props);
     NavigationActions.setNavigator(props.navigator);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
   }
 
   _handleIndexChange = index => {
     this.setState({ index });
+  };
+
+  onNavigatorEvent = event => {
+    if (event.type === "NavBarButtonPress") {
+      if (event.id === "sideDrawerToggle") {
+        NavigationActions.toggleDrawer({
+          side: "left"
+        });
+      }
+    }
   };
 
   _renderHeader = props => (
@@ -50,30 +61,6 @@ class Main extends Component {
       {...props}
     />
   );
-
-  // HotRoute = () => <TopicsList />;
-
-  // AllRoute = () => (
-  //   <View style={[styles.container, { backgroundColor: "#673ab7" }]} />
-  // );
-
-  // // NormalRoute = node => <NormalTopicsList node={node} />;
-  // NormalRoute = () => <NormalTopicsList />;
-
-  // tabHeaderGenerate = () => {
-  //   let sceneMap = {};
-  //   this.state.routes.forEach(route => {
-  //     if (route.key === "hot") {
-  //       sceneMap[route.key] = this.HotRoute;
-  //     } else if (route.key === "all") {
-  //       sceneMap[route.key] = this.AllRoute;
-  //     } else {
-  //       sceneMap[route.key] = this.AllRoute;
-  //       // sceneMap[route.key] = this.NormalRoute;
-  //     }
-  //   });
-  //   return sceneMap;
-  // };
 
   _renderScene = ({ route, focused }) => {
     switch (route.key) {
