@@ -30,7 +30,7 @@ class NormalTopicsList extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.focused) {
-      this.setState({ refreshState: RefreshState.HeaderRefreshing });
+      // this.setState({ refreshState: RefreshState.HeaderRefreshing });
       if (!nextProps.topicLoading) {
         this.setState({ refreshState: RefreshState.Idle });
       }
@@ -39,6 +39,17 @@ class NormalTopicsList extends Component {
 
   onHeaderRefresh = () => {
     this.props.onLoadTopicList(this.props.tabName);
+    this.setState({ refreshState: RefreshState.HeaderRefreshing });
+  };
+
+  onTopicSelected = topicId => {
+    NavigationActions.push({
+      screen: "v2ex-react-native.NormalReplyScreen",
+      title: "主题",
+      passProps: {
+        topicId: topicId
+      }
+    });
   };
 
   render() {
@@ -49,6 +60,7 @@ class NormalTopicsList extends Component {
         keyExtractor={this._keyExtractor}
         refreshState={this.state.refreshState}
         onHeaderRefresh={this.onHeaderRefresh}
+        onFooterRefresh={this.onFooterRefresh}
         renderItem={topic => {
           return (
             <NormalSingleTopic
@@ -57,6 +69,7 @@ class NormalTopicsList extends Component {
               topicAuthor={topic.item.member}
               topicReplies={topic.item.replies}
               topicLastModify={topic.item.time}
+              onTopicSelected={() => this.onTopicSelected(topic.item.id)}
             />
           );
         }}

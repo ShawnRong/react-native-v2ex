@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 
 import Main from "./src/screens/Main/Main";
 import Reply from "./src/screens/Reply/Reply";
+import NormalReply from "./src/screens/NormalReply/NormalReply";
 import TopicsList from "./src/components/TopicsList/TopicsList";
 import configureStore from "./src/store/configStore";
 
@@ -19,6 +20,14 @@ Navigation.registerComponent(
 Navigation.registerComponent(
   "v2ex-react-native.ReplyScreen",
   () => Reply,
+  store,
+  Provider
+);
+
+//Regist Normal Reply Screen
+Navigation.registerComponent(
+  "v2ex-react-native.NormalReplyScreen",
+  () => NormalReply,
   store,
   Provider
 );

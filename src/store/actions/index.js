@@ -1,3 +1,3 @@
 export { fetchHotTopic } from "./main";
-export { fetchReply } from "./reply";
+export { fetchReply, fetchTopicInfo } from "./reply";
 export { fetchTopicList } from "./topic";
